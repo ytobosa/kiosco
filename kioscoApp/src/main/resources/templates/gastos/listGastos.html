@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"h>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>Lista de Banners</title>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/bootstrap/css/theme.css}" rel="stylesheet">
+    <link th:href="@{/css/open-iconic-bootstrap.min.css}" rel="stylesheet" >
+    <link th:href="@{/css/animate.css}" rel="stylesheet">
+    <link th:href="@{/css/owl.carousel.min.css}" rel="stylesheet">
+    <link th:href="@{/css/owl.theme.default.min.css}" rel="stylesheet">
+    <link th:href="@{/css/magnific-popup.css}" rel="stylesheet">
+	<link th:href="@{/css/aos.css}" rel="stylesheet">	
+	<link th:href="@{/css/ionicons.min.css}" rel="stylesheet">
+	<link th:href="@{/css/bootstrap-datepicker.css}" rel="stylesheet">
+	<link th:href="@{/css/jquery.timepicker.css}" rel="stylesheet">
+	<link th:href="@{/css/flaticon.css}" rel="stylesheet">
+	<link th:href="@{/css/icomoon.css}" rel="stylesheet">
+	<link th:href="@{/css/style.css}" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"	rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap"	rel="stylesheet">
+		
+</head>
+<body class="goto-here">
+	<!-- Fixed navbar -->
+	<header th:insert="fragments/menu :: menuPrincipal"></header>
+	<!-- END nav -->
+	
+	<section class="ftco-section">
+		<div class="container theme-showcase" role="main">
+				<h3>Listado de Gastos</h3>
+	     		<a th:href="@{/gastos/create}" class="btn btn-success btn-lg btn-boton" role="button" title="Nuevo Gasto" >Nuevo Gasto</a><br><br>
+				<div class="table-responsive">
+					<div class='alert alert-success' th:if="${msg != null}" role="alert" th:text="${mensaje}"></div>
+					<table class="table table-hover table-striped table-bordered">
+			            <tr>
+			                <th>Id Gasto</th>
+			                <th>Proveedor</th>
+			                <th>Descripcion</th>
+			                <th>Fecha Carga</th>
+			                <th>Fecha Factura</th>
+			                <th>Usuario</th>
+			                <th>Clasificacion</th>
+			                <th>Monto</th>
+			                <th>Tasa Dolar</th>
+			                <th>Monto Dolar</th>
+			                <th>Opciones</th>
+			            </tr>
+			            <h1 id="mensajeHtml"></h1>
+		            	<tr th:each="gasto : ${gastos}">
+			                <td id="prueba">
+			                	<input type="hidden" id="oculto@{${gasto.id}}" name="oculto" th:value="@{/logos/{img} (img=${gasto.imagen})}">
+			                	<a th:onclick="'prueba('\'+${gasto.id}+'\');'" id=",${gasto.id}" th:text="${gasto.id}"></a>
+			                </td>
+			                <td th:text="${gasto.proveedor }"></td>
+			                <td th:text="${gasto.descripcion}"></td>
+			                <td th:text="${gasto.fechaCarga}"></td>
+			                <td th:text="${gasto.fechaFact}"></td>
+			                <td th:text="${gasto.usuario}"></td>
+			                <td th:text="${gasto.clasificacion}"></td>
+							<td th:text="${gasto.montoPesos}"></td>
+							<td th:text="${gasto.tasaDolar}"></td>
+							<td th:text="${gasto.montoDolar}"></td>
+			                <td>
+		                   		<a th:href="@{/gastos/edit/{id} (id=${gasto.id})}" class="btn btn-success btn-lg btn-boton" role="button"  title="Edit" ><span class="glyphicon glyphicon-pencil"></span></a>
+		                    	<a href="#" th:onClick="'eliminar(\''+@{/gastos/delete/{id} (id=${gasto.id})}+'\');'" class="btn btn-success btn-lg btn-boton-danger" role="button" title="Eliminar" ><span class="glyphicon glyphicon-trash"></span></a>
+		                		<a th:onclick="'viewFactura(\''+@{${gasto.id}}+'\');'" class="btn btn-secondary btn-lg boton-Fact" role="button"  title="Imagen Factura" ><span class="glyphicon glyphicon-list-alt"></span></a>
+		                	</td>
+		           	 	</tr>		                    
+		       		</table>
+			        <nav aria-label="">
+						<ul class="pager">
+						
+							<li class="page-item"><a th:href="@{/gastos/indexPagina(page=${gastos.number - 1 })}" class="page-link">Anterior</a></li>
+							<li class="page-item"><a th:href="@{/gastos/indexPagina(page=${gastos.number + 1 })}" class="page-link">Siguiente</a></li>
+						</ul>
+					</nav>		
+				</div>
+			</div>		
+	</section>
+	<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
+		<div class="container py-4">
+			<div class="row d-flex justify-content-center py-5">
+				<div class="col-md-6">
+					<h2 style="font-size: 22px;" class="mb-0">Suscribase a nuestro correo</h2>
+					<span>Enviaremos e-mails acerca de los ultimos estrenos</span>
+				</div>
+				<div class="col-md-6 d-flex align-items-center">
+					<form action="#" class="subscribe-form">
+						<div class="form-group d-flex">
+							<input type="text" class="form-control"
+								placeholder="Ingrese su correo Electronico"> <input type="submit"
+								value="Subscribe" class="submit px-3">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<header th:insert="fragments/footer :: piePagina"></header>
+	<header th:insert="fragments/footer :: piePagina2"></header>
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+    <script	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script> 
+
+	<script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
+	<script th:src="@{/js/popper.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/jquery.easing.1.3.js}"></script>
+	<script th:src="@{/js/jquery.waypoints.min.js}"></script>
+	<script th:src="@{/js/jquery.stellar.min.js}"></script>
+	<script th:src="@{/js/owl.carousel.min.js}"></script>
+	<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+	<script th:src="@{/js/aos.js}"></script>
+	<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+	<script th:src="@{/js/bootstrap-datepicker.js}"></script>
+	<script th:src="@{/js/scrollax.min.js}"></script>
+	<script th:src="@{/js/google-map.js}"></script>
+	<script th:src="@{/js/main.js}"></script>
+	<script th:src="@{/switAlert2/sweetalert2.all.min.js}"></script>
+	
+	<script type="text/javascript">
+	
+		function viewFactura(elemento){
+			var idHidden = 'oculto'+elemento;
+			console.log(idHidden);
+			console.log(elemento);
+			var oculto = document.getElementById(idHidden);
+			console.log(oculto);
+			Swal.fire({
+				  imageUrl: oculto.value,
+				  imageHeight: 500,
+				  imageAlt: 'Factura Incluida'
+				})
+	    }
+	
+	    function eliminar(elemento){
+		    console.log(elemento);
+	    	const swalWithBootstrapButtons = Swal.mixin({
+	    		  customClass: {
+	    		    confirmButton: 'btn btn-success',
+	    		    cancelButton: 'btn btn-danger'
+	    		  },
+	    		  buttonsStyling: false
+	    		})
+	
+	    		swalWithBootstrapButtons.fire({
+	    		  title: 'Estas seguro de borrar el registro?',
+	    		  text: "¡No podrás revertir esto!",
+	    		  icon: 'warning',
+	    		  showCancelButton: true,
+	    		  confirmButtonText: 'Si, borrar!',
+	    		  cancelButtonText: 'No, cancelar!',
+	    		  reverseButtons: true
+	    		}).then((result) => {
+		    		
+	    		  if (result.value) {
+	    			  Swal.fire({
+	    				  position: 'center',
+	    				  icon: 'success',
+	    				  title: 'El Banner fue eliminado con exito',
+	    				  showConfirmButton: false,
+	    				  timer: 1500
+	    				})
+	    			setTimeout( function () { 
+	    				location.href = elemento
+				       }, 2000);
+	    		    ;
+	    		  } else if (
+	    		    /* Read more about handling dismissals below */
+	    		    result.dismiss === Swal.DismissReason.cancel
+	    		  ) {
+	    		    swalWithBootstrapButtons.fire(
+	    		      'Accion cancelada',
+	    		      'El Banner permanece guardado.',
+	    		      'error'
+	    		    )
+	    		  }
+	    		})
+		}
+	</script>
+</body>
+</html>

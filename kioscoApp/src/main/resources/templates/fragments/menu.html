@@ -1,0 +1,57 @@
+<div th:fragment="header" class="py-1 bg-primary">
+	<div class="container">
+		<div
+			class="row no-gutters d-flex align-items-start align-items-center px-md-0">
+			<div class="col-lg-12 d-block">
+				<div class="row d-flex">
+					<div class="col-md pr-4 d-flex topper align-items-center">
+						<div
+							class="icon mr-2 d-flex justify-content-center align-items-center">
+							<span class="icon-phone2"></span>
+						</div>
+						<span class="text">11 50265700</span>
+					</div>
+					<div class="col-md pr-4 d-flex topper align-items-center">
+						<div
+							class="icon mr-2 d-flex justify-content-center align-items-center">
+							<span class="icon-paper-plane"></span>
+						</div>
+						<span class="text">dirielfran@gmail.com</span>
+					</div>
+					<div
+						class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
+						<span class="text">Trabajando siempre para servirles</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<nav th:fragment="menuPrincipal" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+	<img class="img-menu" th:src="@{/images/+58kiosco.png}" alt="+58kioco" height="100" >
+	<a class="navbar-brand" th:href="@{/}">+58Kiosco</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse"
+		data-target="#navbarsExampleDefault"
+		aria-controls="navbarsExampleDefault" aria-expanded="false"
+		aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item" sec:authorize="hasAnyAuthority('GERENTE','EDITOR')"><a class="nav-link active" th:href="@{/banners/indexPagina}">Banners</a></li>
+			<li class="nav-item" sec:authorize="hasAnyAuthority('GERENTE','EDITOR')"><a class="nav-link active" th:href="@{/gastos/indexPagina}">Gastos</a></li>
+			<li class="nav-item" sec:authorize="hasAnyAuthority('EDITOR')"><a class="nav-link active" th:href="@{/usuarios/index}">Usuarios</a></li>
+			<li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
+		</ul>	
+		<div sec:authorize="isAnonymous()">
+			<a class="btn btn-primary" th:href="@{/login}">Ingresar</a>&nbsp; 
+			<a class="btn btn-primary" th:href="@{/create}">Registrarse</a>&nbsp; 
+		</div>
+		<div sec:authorize="isAuthenticated()">
+			<span class="text-light" >Bienvenido, &nbsp;</span><span class="text-light" sec:authentication="name"></span>&nbsp; 
+			<a class="btn btn-primary" th:href="@{/admin/logout}">Salir</a>
+		</div>				
+	</div>
+</nav>

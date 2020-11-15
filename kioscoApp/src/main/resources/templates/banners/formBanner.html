@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"h>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+    <title>Formulario de Contacto</title>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/bootstrap/css/theme.css}" rel="stylesheet">
+    <link th:href="@{/css/open-iconic-bootstrap.min.css}" rel="stylesheet" >
+    <link th:href="@{/css/animate.css}" rel="stylesheet">
+    <link th:href="@{/css/owl.carousel.min.css}" rel="stylesheet">
+    <link th:href="@{/css/owl.theme.default.min.css}" rel="stylesheet">
+    <link th:href="@{/css/magnific-popup.css}" rel="stylesheet">
+	<link th:href="@{/css/aos.css}" rel="stylesheet">	
+	<link th:href="@{/css/ionicons.min.css}" rel="stylesheet">
+	<link th:href="@{/css/bootstrap-datepicker.css}" rel="stylesheet">
+	<link th:href="@{/css/jquery.timepicker.css}" rel="stylesheet">
+	<link th:href="@{/css/flaticon.css}" rel="stylesheet">
+	<link th:href="@{/css/icomoon.css}" rel="stylesheet">
+	<link th:href="@{/css/style.css}" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"	rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap"	rel="stylesheet">
+		
+</head>
+<body class="goto-here">
+	<!-- Fixed navbar -->
+	<header th:insert="fragments/menu :: menuPrincipal"></header>
+	<!-- END nav -->
+	
+	<section class="ftco-section">
+		<div class="container theme-showcase" role="main">
+			<h3 class="blog-title"><span class="label label-success">Datos de la imagen</span></h3>
+		
+			   <form th:action="@{/banners/save}" method="post" th:object="${banner}" enctype="multipart/form-data">
+				   <div th:if="${#fields.hasErrors('*')}" class='alert alert-danger' role='alert'>
+						Por favor corrija los siguientes errores:
+						<ul>
+							<li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+						</ul>
+					</div> 
+			   		<input type="hidden"  th:field="*{id}">
+			      <div class="row">         
+			         <div class="col-sm-6">
+			            <div class="form-group">
+			               <label for="titulo">Titulo</label>             
+			               <input type="text" class="form-control" name="titulo" th:field="*{titulo}" id="titulo" required="required"/>
+			            </div>
+			         </div>
+			         <div class="col-sm-3">
+			            <div class="form-group">
+			               <label for="estatus">Estatus</label>             
+			               <select id="estatus" name="estatus" th:field="*{estatus}" class="form-control">
+			                  <option th:value="Activo" th:text="Activo"></option>
+			                  <option th:value="Inactivo" th:text="Inactivo"></option>                
+			               </select>  
+			            </div>
+			         </div>
+			
+			         <div class="col-sm-3">
+			            <div class="form-group">
+			               <label for="archivoImagen">Imagen</label>
+			               <input type="file" class="form-control-file" name="archivoImagen" id="archivoImagen">
+			               <p class="help-block">Tamaño recomendado: 1140 x 250 </p>
+			            </div> 
+			         </div> 
+			      </div>
+			      
+			      <div class="row">
+			          <div class="col-sm-6">
+			            <div class="form-group" >
+			              <label for="detalles">Detalles</label>
+			              <textarea class="form-control" rows="5" name="detalle" th:field="*{detalle}" id="detalle" style="width: 540px;"></textarea>
+			            </div> 
+			          </div> 
+			        </div>	                  	
+	        	<button type="submit" class="btn btn-danger btn-dangerb" onclick="switalertSuccess()">Guardar</button>   
+			</form>	
+		</div>
+	</section>
+	<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
+		<div class="container py-4">
+			<div class="row d-flex justify-content-center py-5">
+				<div class="col-md-6">
+					<h2 style="font-size: 22px;" class="mb-0">Suscribase a nuestro correo</h2>
+					<span>Eviaremos e-mails acerca de los ultimos estrenos</span>
+				</div>
+				<div class="col-md-6 d-flex align-items-center">
+					<form action="#" class="subscribe-form">
+						<div class="form-group d-flex">
+							<input type="text" class="form-control"
+								placeholder="Ingrese su correo Electronico"> <input type="submit"
+								value="Subscribe" class="submit px-3">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<header th:insert="fragments/footer :: piePagina"></header>
+	<header th:insert="fragments/footer :: piePagina2"></header>
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+    <script	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script> 
+
+	<script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
+	<script th:src="@{/js/popper.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/jquery.easing.1.3.js}"></script>
+	<script th:src="@{/js/jquery.waypoints.min.js}"></script>
+	<script th:src="@{/js/jquery.stellar.min.js}"></script>
+	<script th:src="@{/js/owl.carousel.min.js}"></script>
+	<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+	<script th:src="@{/js/aos.js}"></script>
+	<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+	<script th:src="@{/js/bootstrap-datepicker.js}"></script>
+	<script th:src="@{/js/scrollax.min.js}"></script>
+	<script th:src="@{/js/google-map.js}"></script>
+	<script th:src="@{/js/main.js}"></script>	
+
+</body>
+</html>
